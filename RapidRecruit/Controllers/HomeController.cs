@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using RapidRecruit.Data;
 using RapidRecruit.Models;
 using System.Diagnostics;
 
@@ -15,6 +16,7 @@ namespace RapidRecruit.Controllers
 
         public IActionResult Index()
         {
+            //var db = ApplicationDbContext()
             return View();
         }
 
