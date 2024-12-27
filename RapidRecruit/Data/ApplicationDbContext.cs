@@ -17,5 +17,6 @@ namespace RapidRecruit.Data
         {
             base.OnModelCreating(builder);
         }
+        public DbSet<RapidRecruit.Models.JobPosting> JobPosting { get; set; } = default!;
     }
 }
