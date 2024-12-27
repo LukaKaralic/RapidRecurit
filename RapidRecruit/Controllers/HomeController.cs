@@ -19,7 +19,7 @@ namespace RapidRecruit.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.JobPosting.ToListAsync());
+            return View(await _context.JobPosting.Include(j=>j.User).ToListAsync());
         }
 
         public IActionResult Privacy()

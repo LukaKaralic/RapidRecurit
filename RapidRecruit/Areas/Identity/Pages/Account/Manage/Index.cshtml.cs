@@ -59,18 +59,19 @@ namespace RapidRecruit.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            [Display(Name = "The name of your business")]
+            public string BusinessName { get; set; }
         }
 
         private async Task LoadAsync(UserAccount user)
         {
-            var userName = await _userManager.GetUserNameAsync(user);
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-
-            Username = userName;
+            Username = user.UserName;
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = user.PhoneNumber,
+                BusinessName = user.BusinessName
             };
         }
 
@@ -107,6 +108,17 @@ namespace RapidRecruit.Areas.Identity.Pages.Account.Manage
                 if (!setPhoneResult.Succeeded)
                 {
                     StatusMessage = "Unexpected error when trying to set phone number.";
+                    return RedirectToPage();
+                }
+            }
+
+            if (Input.BusinessName != user.BusinessName)
+            {
+                user.BusinessName = Input.BusinessName;
+                var updateResult = await _userManager.UpdateAsync(user);
+                if (!updateResult.Succeeded)
+                {
+                    StatusMessage = "Unexpected error when trying to update business name.";
                     return RedirectToPage();
                 }
             }
