@@ -12,7 +12,7 @@ using RapidRecruit.Models;
 
 namespace RapidRecruit.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "BusinessOnly")]
     public class JobPostingsController : Controller
     {
         private readonly ApplicationDbContext _context;

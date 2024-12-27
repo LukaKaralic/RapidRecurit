@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RapidRecruit.Data;
 using RapidRecruit.Models;
 using System.Diagnostics;
@@ -8,16 +9,17 @@ namespace RapidRecruit.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ApplicationDbContext context, ILogger<HomeController> logger)
         {
             _logger = logger;
+            _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            //var db = ApplicationDbContext()
-            return View();
+            return View(await _context.JobPosting.ToListAsync());
         }
 
         public IActionResult Privacy()
