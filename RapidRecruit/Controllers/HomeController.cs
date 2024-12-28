@@ -22,9 +22,18 @@ namespace RapidRecruit.Controllers
             return View(await _context.JobPosting.Include(j=>j.User).ToListAsync());
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> Job(int id)
         {
-            return View();
+
+            var jobPosting = await _context.JobPosting.Include(j => j.User).FirstOrDefaultAsync(j => j.Id == id);
+
+            if (jobPosting == null)
+            {
+                return NotFound();
+            }
+
+            return View(jobPosting);
+
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
