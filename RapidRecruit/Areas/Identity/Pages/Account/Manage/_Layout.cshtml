@@ -1,5 +1,5 @@
 ﻿@{
-    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout !=  null)
+    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout != null)
     {
         Layout = parentLayout.ToString();
     }
@@ -9,17 +9,24 @@
     }
 }
 
-<h1>Manage your account</h1>
+<div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">Account Settings</h1>
+        <p class="mt-2 text-sm text-gray-600">Manage your account preferences and security settings.</p>
+    </div>
 
-<div>
-    <h2>Change your account settings</h2>
-    <hr />
-    <div class="row">
-        <div class="col-md-3">
-            <partial name="_ManageNav" />
-        </div>
-        <div class="col-md-9">
-            @RenderBody()
+    <div class="bg-white shadow rounded-lg">
+        <div class="grid grid-cols-1 md:grid-cols-12 divide-y md:divide-y-0 md:divide-x divide-gray-200">
+            <!-- Navigation Sidebar -->
+            <div class="col-span-3 p-4 bg-gray-50 rounded-l-lg">
+                <h2 class="text-lg font-medium text-gray-900 mb-4">Settings Menu</h2>
+                <partial name="_ManageNav" />
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="col-span-9 p-6">
+                @RenderBody()
+            </div>
         </div>
     </div>
 </div>

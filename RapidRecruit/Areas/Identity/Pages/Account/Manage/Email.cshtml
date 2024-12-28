@@ -5,36 +5,75 @@
     ViewData["ActivePage"] = ManageNavPages.Email;
 }
 
-<h3>@ViewData["Title"]</h3>
-<partial name="_StatusMessage" for="StatusMessage" />
-<div class="row">
-    <div class="col-md-6">
-        <form id="email-form" method="post">
-            <div asp-validation-summary="All" class="text-danger" role="alert"></div>
+<div class="space-y-6">
+    <div>
+        <h2 class="text-2xl font-bold text-gray-900">Email Settings</h2>
+        <p class="mt-1 text-sm text-gray-600">Manage and update your email preferences.</p>
+    </div>
+
+    <partial name="_StatusMessage" for="StatusMessage" />
+
+    <div class="bg-white shadow rounded-lg">
+        <form id="email-form" method="post" class="space-y-6 p-6">
+            <div asp-validation-summary="All" role="alert"></div>
+
             @if (Model.IsEmailConfirmed)
             {
-                <div class="form-floating mb-3 input-group">
-                    <input asp-for="Email" class="form-control" placeholder="Please enter your email." disabled />
-                        <div class="input-group-append">
-                            <span class="h-100 input-group-text text-success font-weight-bold">✓</span>
+                <div class="space-y-1">
+                    <label asp-for="Email" class="block text-sm font-medium text-gray-700">Current Email</label>
+                    <div class="mt-1 relative flex rounded-md shadow-sm">
+                        <input asp-for="Email"
+                               disabled
+                               class="block w-full rounded-l-md border-gray-300 bg-gray-50 pr-10 text-gray-500 sm:text-sm"
+                               placeholder="Please enter your email." />
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                            <svg class="h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                            </svg>
                         </div>
-                    <label asp-for="Email" class="form-label"></label>
+                    </div>
+                    <p class="mt-1 text-sm text-green-600">Email verified</p>
                 </div>
             }
             else
             {
-                <div class="form-floating mb-3">
-                    <input asp-for="Email" class="form-control" placeholder="Please enter your email." disabled />
-                    <label asp-for="Email" class="form-label"></label>
-                    <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link">Send verification email</button>
+                <div class="space-y-1">
+                    <label asp-for="Email" class="block text-sm font-medium text-gray-700">Current Email</label>
+                    <div class="mt-1">
+                        <input asp-for="Email"
+                               disabled
+                               class="block w-full rounded-md border-gray-300 bg-gray-50 text-gray-500 sm:text-sm"
+                               placeholder="Please enter your email." />
+                    </div>
+                    <button id="email-verification"
+                            type="submit"
+                            asp-page-handler="SendVerificationEmail"
+                            class="mt-2 text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                        Send verification email
+                    </button>
                 </div>
             }
-            <div class="form-floating mb-3">
-                <input asp-for="Input.NewEmail" class="form-control" autocomplete="email" aria-required="true" placeholder="Please enter new email." />
-                <label asp-for="Input.NewEmail" class="form-label"></label>
-                <span asp-validation-for="Input.NewEmail" class="text-danger"></span>
+
+            <div class="space-y-1">
+                <label asp-for="Input.NewEmail" class="block text-sm font-medium text-gray-700">New Email</label>
+                <div class="mt-1">
+                    <input asp-for="Input.NewEmail"
+                           autocomplete="email"
+                           aria-required="true"
+                           class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                           placeholder="Please enter new email." />
+                </div>
+                <span asp-validation-for="Input.NewEmail" class="mt-1 text-sm text-red-600"></span>
             </div>
-            <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="w-100 btn btn-lg btn-primary">Change email</button>
+
+            <div class="flex justify-end pt-4">
+                <button id="change-email-button"
+                        type="submit"
+                        asp-page-handler="ChangeEmail"
+                        class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Change email
+                </button>
+            </div>
         </form>
     </div>
 </div>

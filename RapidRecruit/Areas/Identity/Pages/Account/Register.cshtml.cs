@@ -83,7 +83,10 @@ namespace RapidRecruit.Areas.Identity.Pages.Account
 
             [Required]
             [Display(Name = "I am a:")]
-            public AccountType AccountType { get; set; }
+            public AccountType AccountType { get; set; } = AccountType.Person;
+
+            [Display(Name = "Company Name")]
+            public string? BusinessName { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
