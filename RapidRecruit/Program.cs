@@ -5,6 +5,7 @@ using RapidRecruit.Authorization;
 using RapidRecruit.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.DotNet.Scaffolding.Shared.CodeModifier.CodeChange;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,10 +53,6 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Job}/{id?}");
 
 
 app.MapRazorPages();

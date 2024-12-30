@@ -16,9 +16,35 @@
                     </div>
                 </div>
                 <div>
-                    <button class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        Apply Now
-                    </button>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <a asp-area="Identity"
+                           asp-page="/Account/Login"
+                           asp-route-returnUrl="@Context.Request.Path"
+                           class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            Apply Now
+                        </a>
+                    }
+                    else
+                    {
+                        @if (User.Claims.Any(c => c.Type == "AccountType" && c.Value == "1"))
+                        {
+                            <button disabled
+                                    class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gray-400 cursor-not-allowed"
+                                    title="Business accounts cannot apply for jobs">
+                                Apply Now
+                            </button>
+                        }
+                        else
+                        {
+                            <a asp-controller="Home"
+                               asp-action="Apply"
+                               asp-route-id="@Model.Id"
+                               class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                Apply Now
+                            </a>
+                        }
+                    }
                 </div>
             </div>
         </div>

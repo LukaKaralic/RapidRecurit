@@ -25,6 +25,9 @@
                                 <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900">
                                     @Html.DisplayNameFor(model => model.Title)
                                 </th>
+                                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900">
+                                    Number of applications
+                                </th>
                                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                     @Html.DisplayNameFor(model => model.Description)
                                 </th>
@@ -54,6 +57,9 @@
                                 <tr class="hover:bg-gray-50">
                                     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">
                                         @Html.DisplayFor(modelItem => item.Title)
+                                    </td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                        @Html.DisplayFor(modelItem => item.JobApplications.Count)
                                     </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                         @Html.DisplayFor(modelItem => item.Description)

@@ -31,7 +31,7 @@ namespace RapidRecruit.Controllers
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User);
-            return View(await _context.JobPosting.Where(JobPosting => JobPosting.UserId == user.Id).ToListAsync());
+            return View(await _context.JobPosting.Where(JobPosting => JobPosting.UserId == user.Id).Include(j=> j.JobApplications).ToListAsync());
         }
 
         // GET: JobPostings/Details/5

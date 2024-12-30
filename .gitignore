@@ -482,3 +482,5 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+# uploads dir
+RapidRecruit/wwwroot/uploads

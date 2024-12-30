@@ -13,6 +13,8 @@ namespace RapidRecruit.Models
         [ForeignKey("UserId")]
         public UserAccount User {  get; set; }
 
+        public ICollection<JobApplication> JobApplications { get; set; }
+
         [Required]
         public string Title { get; set; }
 
