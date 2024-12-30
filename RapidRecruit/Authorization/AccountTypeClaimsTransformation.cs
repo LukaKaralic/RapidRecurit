@@ -14,23 +14,20 @@ public class AccountTypeClaimsTransformation : IClaimsTransformation
 
     public async Task<ClaimsPrincipal> TransformAsync(ClaimsPrincipal principal)
     {
-        var claimsIdentity = new ClaimsIdentity();
         var claimType = "AccountType";
-
         if (!principal.HasClaim(claim => claim.Type == claimType))
         {
             var user = await _userManager.GetUserAsync(principal);
             if (user != null)
             {
+                var identity = principal.Identity as ClaimsIdentity;
                 var claim = new Claim(
                     type: claimType,
                     value: user.AccountType.ToString()
                 );
-                claimsIdentity.AddClaim(claim);
+                identity.AddClaim(claim);  // Add to existing identity instead of creating new one
             }
         }
-
-        principal.AddIdentity(claimsIdentity);
         return principal;
     }
 }

@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RapidRecruit.Data;
 using RapidRecruit.Models;
 using System.Diagnostics;
+using System.Linq;
 
 namespace RapidRecruit.Controllers
 {
@@ -37,11 +39,17 @@ namespace RapidRecruit.Controllers
             {
                 return NotFound();
             }
+            var user = await _userManager.GetUserAsync(User);
+            if(user != null)
+            {
+                ViewData["AlreadyApplied"] = await _context.JobApplication.Where(j => j.JobPostingId == id && j.UserId == user.Id).AnyAsync();
+            }
 
             return View(jobPosting);
 
         }
 
+        [Authorize]
         [Route("Home/JobPostings/{id}/Apply")]
         public async Task<IActionResult> Apply(int id)
         {
@@ -53,21 +61,23 @@ namespace RapidRecruit.Controllers
                 return NotFound();
             }
 
+            var user = await _userManager.GetUserAsync(User);
+            if( await _context.JobApplication.Where(j => j.JobPostingId == id && j.UserId == user.Id).AnyAsync())
+            {
+                return RedirectToAction("Job", new { id = id });
+            }
+
             return View(jobPosting);
 
         }
 
+        [Authorize]
         [HttpPost]
         [Route("Home/JobPostings/{id}/Apply")]
         [ValidateAntiForgeryToken]
 
         public async Task<IActionResult> SubmitApplication(int id, IFormFile resume, string? message)
         {
-            foreach (var key in Request.Form.Keys)
-            {
-                _logger.LogError($"Form key: {key}, Value: {Request.Form[key]}");
-            }
-
             var jobPosting = await _context.JobPosting.Include(j => j.User).FirstOrDefaultAsync(j => j.Id == id);
 
             if (jobPosting == null)
@@ -93,16 +103,13 @@ namespace RapidRecruit.Controllers
             string uploadsFolder = Path.Combine("wwwroot", "uploads", "resumes");
             string filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
-            // Ensure directory exists
             Directory.CreateDirectory(uploadsFolder);
 
-            // Save file
             using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
                 await resume.CopyToAsync(fileStream);
             }
 
-            // Create and save job application
             var application = new JobApplication
             {
                 UserId = user.Id,

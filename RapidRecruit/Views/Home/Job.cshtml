@@ -27,7 +27,7 @@
                     }
                     else
                     {
-                        @if (User.Claims.Any(c => c.Type == "AccountType" && c.Value == "1"))
+                        @if (User.Claims.Any(c => c.Type == "AccountType" && c.Value == AccountType.Business.ToString()))
                         {
                             <button disabled
                                     class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gray-400 cursor-not-allowed"
@@ -37,12 +37,26 @@
                         }
                         else
                         {
-                            <a asp-controller="Home"
-                               asp-action="Apply"
-                               asp-route-id="@Model.Id"
-                               class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                Apply Now
-                            </a>
+                            if (@ViewData["AlreadyApplied"] as bool? == true)
+                            {
+                                <button disabled
+                                        class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-green-600 cursor-not-allowed"
+                                        title="You have already applied">
+                                    <span>Applied</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+                            }
+                            else
+                            {
+                                <a asp-controller="Home"
+                                   asp-action="Apply"
+                                   asp-route-id="@Model.Id"
+                                   class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    Apply Now
+                                </a>
+                            }
                         }
                     }
                 </div>
