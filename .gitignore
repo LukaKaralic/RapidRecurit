@@ -484,3 +484,4 @@ $RECYCLE.BIN/
 *.swp
 # uploads dir
 RapidRecruit/wwwroot/uploads
+RapidRecruit/certs

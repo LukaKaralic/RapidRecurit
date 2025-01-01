@@ -1,0 +1,48 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    volumes:
+      - uploads:/app/wwwroot/uploads
+    depends_on:
+      - db
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=db;Database=RapidRecruit;User=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True
+
+  migrations:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: migrations
+    depends_on:
+      - db
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=db;Database=RapidRecruit;User=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "443:443"
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./certs:/etc/nginx/certs
+    depends_on:
+      - app
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong!Passw0rd
+    ports:
+      - "1433:1433"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - sqldata:/var/opt/mssql
+
+volumes:
+  sqldata:
+  uploads:
