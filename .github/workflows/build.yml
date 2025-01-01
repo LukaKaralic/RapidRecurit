@@ -22,7 +22,7 @@ jobs:
    - name: Build and push app image
      uses: docker/build-push-action@v5
      with:
-       context: .
+       context: ./RapidRecruit
        file: ./RapidRecruit/Dockerfile
        push: true
        tags: lukakaralic/rapidrecruit:latest
@@ -30,7 +30,7 @@ jobs:
    - name: Build and push migrations image  
      uses: docker/build-push-action@v5
      with:
-       context: .
+       context: ./RapidRecruit
        file: ./RapidRecruit/Dockerfile.migrations
        push: true
        tags: lukakaralic/rapidrecruit-migrations:latest
