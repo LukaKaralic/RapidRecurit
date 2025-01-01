@@ -26,8 +26,3 @@ EXPOSE 80
 # Start the application
 ENTRYPOINT ["dotnet", "RapidRecruit.dll"]
 
-
-FROM build as migrations
-RUN dotnet tool install --global dotnet-ef
-ENV PATH="${PATH}:/root/.dotnet/tools"
-ENTRYPOINT dotnet ef database update

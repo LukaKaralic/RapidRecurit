@@ -9,8 +9,7 @@ services:
       - ConnectionStrings__DefaultConnection=Server=db;Database=RapidRecruit;User=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True
 
   migrations:
-    image: lukakaralic/rapidrecruit:latest
-    entrypoint: ["dotnet", "ef", "database", "update"]
+    image: lukakaralic/rapidrecruit-migrations:latest
     depends_on:
       - db
     environment:
