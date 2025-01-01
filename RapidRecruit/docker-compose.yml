@@ -28,9 +28,17 @@ services:
       - "80:80"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./certs:/etc/nginx/certs
+      - ./certs:/etc/letsencrypt
+      - ./webroot:/var/www/html
     depends_on:
       - app
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./certs:/etc/letsencrypt
+      - ./webroot:/var/www/html
+    command: certonly --webroot --webroot-path=/var/www/html -d its.lukakaralic.com --email lukakaralic98@gmail.com --agree-tos --no-eff-email
 
   db:
     image: mcr.microsoft.com/mssql/server:2022-latest
