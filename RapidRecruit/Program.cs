@@ -3,9 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using RapidRecruit.Data;
 using RapidRecruit.Authorization;
 using RapidRecruit.Models;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using RapidRecruit.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.DotNet.Scaffolding.Shared.CodeModifier.CodeChange;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +30,7 @@ builder.Services.AddAuthorization(options =>
 });
 
 builder.Services.AddDefaultIdentity<UserAccount>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddTransient<IEmailSender, SendgridSender>();
 
 // After your AddDefaultIdentity call, add:
 builder.Services.AddScoped<IClaimsTransformation, AccountTypeClaimsTransformation>(); 
