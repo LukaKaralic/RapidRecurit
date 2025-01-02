@@ -5,15 +5,15 @@ services:
       - uploads:/app/wwwroot/uploads
     depends_on:
       - db
-    environment:
-      - ConnectionStrings__DefaultConnection=Server=db;Database=RapidRecruit;User=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True
+    env_file:
+     - .env
 
   migrations:
     image: lukakaralic/rapidrecruit-migrations:latest
     depends_on:
       - db
-    environment:
-      - ConnectionStrings__DefaultConnection=Server=db;Database=RapidRecruit;User=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True
+    env_file:
+     - .env
 
   watchtower:
     image: containrrr/watchtower
