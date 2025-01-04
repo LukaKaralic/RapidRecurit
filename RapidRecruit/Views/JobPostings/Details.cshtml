@@ -3,7 +3,7 @@
     ViewData["Title"] = "Job Posting Details";
 }
 
-<div class="max-w-3xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+<div class="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
     <div class="mb-8">
         <div class="flex items-center justify-between">
             <h1 class="text-3xl font-bold text-gray-900">@Html.DisplayFor(model => model.Title)</h1>
@@ -52,6 +52,56 @@
                         </div>
                     </dl>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-8">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Applications (@Model.JobApplications.Count)</h2>
+        <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Applicant</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Resume</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Applied Date</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        @foreach (var application in Model.JobApplications)
+                        {
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-gray-900">@application.User.UserName</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+                                    @(application.ReviewDescision == null ? "bg-yellow-100 text-yellow-800" :
+                                      application.ReviewDescision == Descision.Up ? "bg-green-100 text-green-800" :
+                                      "bg-red-100 text-red-800")">
+                                        @(application.ReviewDescision == null ? "Pending" :
+                                            application.ReviewDescision == Descision.Up ? "Accepted" : "Rejected")
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <a href="/@application.ResumeFilePath" target="_blank" class="text-indigo-600 hover:text-indigo-900">
+                                        @application.ResumeFileName
+                                    </a>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    @application.CreatedAt.ToString("MMM dd, yyyy")
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <a href="@Url.Action("Details", "JobApplications", new { id = application.Id })"
+                                       class="text-indigo-600 hover:text-indigo-900">View Details</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

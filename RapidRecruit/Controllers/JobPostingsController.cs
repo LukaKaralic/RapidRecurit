@@ -43,7 +43,9 @@ namespace RapidRecruit.Controllers
             }
 
             var jobPosting = await _context.JobPosting
-                .FirstOrDefaultAsync(m => m.Id == id);
+                                           .Include(jp => jp.JobApplications)
+                                           .ThenInclude(ja => ja.User)
+                                           .FirstOrDefaultAsync(m => m.Id == id);
             if (jobPosting == null)
             {
                 return NotFound();
