@@ -73,6 +73,7 @@ namespace RapidRecruit.Controllers
             jobPosting.UpdatedAt = DateTime.Now;
             ModelState.Remove("UserId");
             ModelState.Remove("User");
+
             if (ModelState.IsValid)
             {
                 _context.Add(jobPosting);

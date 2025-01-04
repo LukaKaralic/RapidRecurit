@@ -58,7 +58,9 @@
 
             <div class="space-y-1">
                 <label asp-for="EndDate" class="block text-sm font-medium text-gray-700"></label>
-                <input asp-for="EndDate" type="date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                <input asp-for="EndDate" type="date"
+                       min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")"
+                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
                 <span asp-validation-for="EndDate" class="text-sm text-red-600"></span>
             </div>
 
