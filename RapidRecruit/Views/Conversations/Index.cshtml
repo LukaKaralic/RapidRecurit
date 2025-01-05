@@ -46,8 +46,8 @@
                                 <div class="flex justify-between items-start mb-1">
                                     <h3 class="font-medium text-gray-900">
                                         @(User.Identity.Name == conversation.Candidate.UserName
-                                            ? conversation.HiringManager.UserName
-                                            : conversation.Candidate.UserName)
+                                            ? $"{conversation.HiringManager.FirstName} {conversation.HiringManager.LastName}"
+                                            : $"{conversation.Candidate.FirstName} {conversation.Candidate.LastName}")
                                     </h3>
                                     <span class="text-xs text-gray-500">
                                         @conversation.UpdatedAt.ToString("MMM dd")

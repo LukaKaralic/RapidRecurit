@@ -62,6 +62,12 @@ namespace RapidRecruit.Areas.Identity.Pages.Account.Manage
 
             [Display(Name = "The name of your business")]
             public string BusinessName { get; set; }
+
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
         }
 
         private async Task LoadAsync(UserAccount user)
@@ -71,7 +77,9 @@ namespace RapidRecruit.Areas.Identity.Pages.Account.Manage
             Input = new InputModel
             {
                 PhoneNumber = user.PhoneNumber,
-                BusinessName = user.BusinessName
+                BusinessName = user.BusinessName,
+                FirstName = user.FirstName,
+                LastName = user.LastName
             };
         }
 
@@ -112,13 +120,32 @@ namespace RapidRecruit.Areas.Identity.Pages.Account.Manage
                 }
             }
 
+            var needsUpdate = false;
+
             if (Input.BusinessName != user.BusinessName)
             {
                 user.BusinessName = Input.BusinessName;
+                needsUpdate = true;
+            }
+
+            if (Input.FirstName != user.FirstName)
+            {
+                user.FirstName = Input.FirstName;
+                needsUpdate = true;
+            }
+
+            if (Input.LastName != user.LastName)
+            {
+                user.LastName = Input.LastName;
+                needsUpdate = true;
+            }
+
+            if (needsUpdate)
+            {
                 var updateResult = await _userManager.UpdateAsync(user);
                 if (!updateResult.Succeeded)
                 {
-                    StatusMessage = "Unexpected error when trying to update business name.";
+                    StatusMessage = "Unexpected error when trying to update profile.";
                     return RedirectToPage();
                 }
             }

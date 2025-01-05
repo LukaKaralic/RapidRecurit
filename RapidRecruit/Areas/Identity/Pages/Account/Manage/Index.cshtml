@@ -4,22 +4,18 @@
     ViewData["Title"] = "Profile";
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
-
 <div class="space-y-6">
     <div>
         <h2 class="text-2xl font-bold text-gray-900">Profile Settings</h2>
         <p class="mt-1 text-sm text-gray-600">Update your account preferences and contact information.</p>
     </div>
-
     <partial name="_StatusMessage" for="StatusMessage" />
-
     <div class="bg-white shadow rounded-lg">
         <form id="profile-form" method="post" class="space-y-6 p-6">
             <div asp-validation-summary="ModelOnly"
                  class="mb-4 p-4 rounded-md bg-red-50 text-sm text-red-600"
                  role="alert">
             </div>
-
             <div class="space-y-1">
                 <label asp-for="Username" class="block text-sm font-medium text-gray-700">Username</label>
                 <div class="mt-1">
@@ -29,7 +25,6 @@
                            placeholder="Please choose your username." />
                 </div>
             </div>
-
             @if (User.Claims.Any(c => c.Type == "AccountType" && c.Value == "Business"))
             {
                 <div class="space-y-1">
@@ -42,7 +37,26 @@
                     <span asp-validation-for="Input.BusinessName" class="mt-1 text-sm text-red-600"></span>
                 </div>
             }
-
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <div class="space-y-1">
+                    <label asp-for="Input.FirstName" class="block text-sm font-medium text-gray-700">First Name</label>
+                    <div class="mt-1">
+                        <input asp-for="Input.FirstName"
+                               class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                               placeholder="Enter your first name" />
+                    </div>
+                    <span asp-validation-for="Input.FirstName" class="mt-1 text-sm text-red-600"></span>
+                </div>
+                <div class="space-y-1">
+                    <label asp-for="Input.LastName" class="block text-sm font-medium text-gray-700">Last Name</label>
+                    <div class="mt-1">
+                        <input asp-for="Input.LastName"
+                               class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                               placeholder="Enter your last name" />
+                    </div>
+                    <span asp-validation-for="Input.LastName" class="mt-1 text-sm text-red-600"></span>
+                </div>
+            </div>
             <div class="space-y-1">
                 <label asp-for="Input.PhoneNumber" class="block text-sm font-medium text-gray-700">Phone Number</label>
                 <div class="mt-1">
@@ -52,7 +66,6 @@
                 </div>
                 <span asp-validation-for="Input.PhoneNumber" class="mt-1 text-sm text-red-600"></span>
             </div>
-
             <div class="flex justify-end pt-4">
                 <button id="update-profile-button"
                         type="submit"
@@ -63,7 +76,6 @@
         </form>
     </div>
 </div>
-
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
