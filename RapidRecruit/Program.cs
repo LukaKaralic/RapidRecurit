@@ -8,7 +8,6 @@ using RapidRecruit.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -22,18 +21,29 @@ builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("OwnerPolicy", policy =>
         policy.Requirements.Add(new OwnerRequirement()));
-});
-builder.Services.AddAuthorization(options =>
-{
+
     options.AddPolicy("BusinessOnly", policy =>
         policy.RequireClaim("AccountType", "Business"));
 });
 
-builder.Services.AddDefaultIdentity<UserAccount>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
-builder.Services.AddTransient<IEmailSender, SendgridSender>();
+var identityBuilder = builder.Services.AddDefaultIdentity<UserAccount>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = !builder.Environment.IsDevelopment();
+});
+identityBuilder.AddEntityFrameworkStores<ApplicationDbContext>();
 
-// After your AddDefaultIdentity call, add:
-builder.Services.AddScoped<IClaimsTransformation, AccountTypeClaimsTransformation>(); 
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddTransient<IEmailSender, NoOpEmailSender>();
+}
+else
+{
+    builder.Services.AddTransient<IEmailSender, SendgridSender>();
+}
+
+// Claims transformation
+builder.Services.AddScoped<IClaimsTransformation, AccountTypeClaimsTransformation>();
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -42,22 +52,17 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-
 app.MapRazorPages();
 
 app.Run();

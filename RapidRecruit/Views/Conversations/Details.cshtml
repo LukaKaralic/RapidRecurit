@@ -1,0 +1,120 @@
+﻿@model RapidRecruit.Models.Conversation
+
+<div class="h-[calc(100vh-160px)] max-h-[800px] flex">
+    <!-- Left sidebar - Chat list -->
+    <div class="w-1/3 border-r border-gray-200 bg-white flex flex-col">
+        <!-- Header -->
+        <div class="py-3 px-4 border-b border-gray-200">
+            <h1 class="text-lg font-semibold text-gray-800">Messages</h1>
+        </div>
+
+        <!-- Chat list -->
+        <div class="flex-1 overflow-y-auto">
+            @if (!Model.Messages.Any())
+            {
+                <div class="p-6 flex flex-col items-center justify-center h-full text-center">
+                    <p class="text-gray-600">No messages yet</p>
+                </div>
+            }
+            else
+            {
+                @foreach (var conversation in ViewBag.AllConversations)
+                {
+                    <a href="@Url.Action("Details", new { id = conversation.Id })"
+                       class="block hover:bg-gray-50 transition-colors duration-150 @(conversation.Id == Model.Id ? "bg-gray-100" : "")">
+                        <div class="py-3 px-4 border-b border-gray-200">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="font-medium text-gray-900">
+                                    @(User.Identity.Name == conversation.Candidate.UserName
+                                        ? conversation.HiringManager.UserName
+                                        : conversation.Candidate.UserName)
+                                </h3>
+                                <span class="text-xs text-gray-500">
+                                    @conversation.UpdatedAt.ToString("MMM dd")
+                                </span>
+                            </div>
+                            @if (conversation.Messages != null && conversation.Messages.Count > 0)
+                            {
+                                <p class="text-sm text-gray-500 truncate">
+                                    @conversation.Messages[0].Content
+                                </p>
+                            }
+                        </div>
+                    </a>
+                }
+            }
+        </div>
+    </div>
+
+    <!-- Right side - Chat window -->
+    <div class="w-2/3 bg-gray-50 flex flex-col">
+        <!-- Chat header -->
+        <div class="bg-white border-b border-gray-200 py-3 px-4">
+            <div class="flex items-center">
+                <div class="flex-1">
+                    <h2 class="text-base font-medium text-gray-900">
+                        @(User.Identity.Name == Model.Candidate.UserName
+                            ? Model.HiringManager.UserName
+                            : Model.Candidate.UserName)
+                    </h2>
+                    <p class="text-xs text-gray-500">
+                        @Model.JobApplication.JobPosting.Title
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Messages area -->
+        <div id="messagesContainer" class="flex-1 overflow-y-auto p-3">
+            <div class="flex flex-col justify-end min-h-full">
+                <div class="space-y-3">
+                    @foreach (var message in Model.Messages.OrderBy(m => m.CreatedAt))
+                    {
+                        bool isCurrentUser = message.UserId == User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+                        <div class="@(isCurrentUser ? "flex justify-end" : "flex justify-start")">
+                            <div class="max-w-[70%]">
+                                <div class="@(isCurrentUser
+                                    ? "bg-indigo-600 text-white rounded-2xl rounded-tr-sm px-3 py-2"
+                                    : "bg-white text-gray-900 rounded-2xl rounded-tl-sm px-3 py-2 shadow-sm")">
+                                    <p class="text-sm">@message.Content</p>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-0.5 @(isCurrentUser ? "text-right" : "text-left")">
+                                    @message.CreatedAt.ToString("h:mm tt")
+                                </p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <script>
+            window.onload = function() {
+                var container = document.getElementById('messagesContainer');
+                container.scrollTop = container.scrollHeight;
+            }
+        </script>
+
+        <!-- Message input -->
+        <div class="bg-white border-t border-gray-200 p-3">
+            <form asp-action="SendMessage" asp-route-id="@Model.Id" method="post" class="flex items-center space-x-3">
+                <div class="flex-1">
+                    <input type="text"
+                           name="content"
+                           autofocus
+                           class="w-full border-gray-300 rounded-full focus:ring-indigo-500 focus:border-indigo-500 px-4 py-2 text-sm"
+                           placeholder="Type a message..."
+                           required />
+                </div>
+                <button type="submit"
+                        class="inline-flex items-center px-3 py-2 border border-transparent rounded-full shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

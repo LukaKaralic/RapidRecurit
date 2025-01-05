@@ -19,6 +19,12 @@
 
                     <div class="hidden sm:flex sm:items-center">
                         <div class="flex space-x-4">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md" asp-controller="Conversations" asp-action="Index">Chats</a>
+                            }
+                        </div>
+                        <div class="flex space-x-4">
                             @if (User.Identity.IsAuthenticated && User.Claims.Any(c => c.Type == "AccountType" && c.Value == "Business"))
                             {
                                 <a class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md" asp-controller="JobPostings" asp-action="Index">Job Postings</a>

@@ -34,6 +34,8 @@ namespace RapidRecruit.Models
         [Required]
         public string ResumeFilePath { get; set; }
 
+        public virtual Conversation Conversation { get; set; }
+
         [Display(Name = "Submited At")]
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
