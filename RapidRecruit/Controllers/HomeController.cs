@@ -22,9 +22,26 @@ namespace RapidRecruit.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string search)
         {
-            return View(await _context.JobPosting.Include(j=>j.User).ToListAsync());
+            var query = _context.JobPosting
+                .Include(j => j.User)
+                .OrderByDescending(j => j.CreatedAt)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                search = search.ToLower();
+                query = query.Where(j =>
+                    j.Title.ToLower().Contains(search) ||
+                    j.Location.ToLower().Contains(search) ||
+                    j.User.BusinessName.ToLower().Contains(search) ||
+                    j.Description.ToLower().Contains(search)
+                );
+            }
+
+            var jobPostings = await query.ToListAsync();
+            return View(jobPostings);
         }
 
 
