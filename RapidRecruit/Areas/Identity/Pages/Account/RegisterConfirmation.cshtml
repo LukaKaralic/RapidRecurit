@@ -1,23 +1,41 @@
 ﻿@page
 @model RegisterConfirmationModel
 @{
-    ViewData["Title"] = "Register confirmation";
+    ViewData["Title"] = "Registration Confirmation";
 }
 
-<h1>@ViewData["Title"]</h1>
-@{
-    if (@Model.DisplayConfirmAccountLink)
-    {
-<p>
-    This app does not currently have a real email sender registered, see <a href="https://aka.ms/aspaccountconf">these docs</a> for how to configure a real email sender.
-    Normally this would be emailed: <a id="confirm-link" href="@Model.EmailConfirmationUrl">Click here to confirm your account</a>
-</p>
-    }
-    else
-    {
-<p>
-        Please check your email to confirm your account.
-</p>
-    }
-}
+<div class="min-h-[60vh] flex flex-col items-center justify-center px-4">
+    <div class="max-w-md w-full space-y-8 text-center">
+        <!-- Success Icon -->
+        <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+            <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+        </div>
 
+        <!-- Title -->
+        <h1 class="text-3xl font-bold text-gray-900">
+            Registration Successful
+        </h1>
+
+        <!-- Message -->
+        <div class="bg-white rounded-lg shadow-sm p-6">
+            <p class="text-lg text-gray-600 mb-4">
+                Please check your email to confirm your account.
+            </p>
+            <p class="text-sm text-gray-500">
+                If you don't see the email in your inbox, please check your spam folder.
+            </p>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4 justify-center mt-6">
+            <a href="/" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                Return Home
+            </a>
+            <a href="/Identity/Account/Login" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                Go to Login
+            </a>
+        </div>
+    </div>
+</div>
