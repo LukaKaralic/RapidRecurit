@@ -124,6 +124,11 @@ namespace RapidRecruit.Controllers
             {
                 return NotFound();
             }
+            var user = await _userManager.GetUserAsync(User);
+            jobPosting.UserId = user.Id;
+            jobPosting.UpdatedAt = DateTime.Now;
+            ModelState.Remove("UserId");
+            ModelState.Remove("User");
 
             if (ModelState.IsValid)
             {
