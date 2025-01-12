@@ -6,7 +6,7 @@
         <div class="h-full flex flex-col">
             <!-- Header -->
             <div class="py-3 px-4 border-b border-gray-200">
-                <h1 class="text-lg font-semibold text-gray-800">Messages</h1>
+                <h1 class="text-lg font-semibold text-gray-800">Poruke</h1>
             </div>
 
             <!-- Chat list -->
@@ -16,10 +16,10 @@
                     <div class="py-3 px-4 border-b border-gray-200">
                         <div class="flex justify-between items-start mb-1">
                             <h3 class="font-medium text-gray-900">@Model.User.UserName</h3>
-                            <span class="text-xs text-gray-500">New</span>
+                            <span class="text-xs text-gray-500">Novo</span>
                         </div>
                         <p class="text-sm text-gray-500">
-                            Applicant for: @Model.JobPosting.Title
+                            Kandidat za: @Model.JobPosting.Title
                         </p>
                     </div>
                 </div>
@@ -60,7 +60,7 @@
                 <div class="flex-1">
                     <h2 class="text-lg font-medium text-gray-900">@Model.User.UserName</h2>
                     <p class="text-sm text-gray-500">
-                        Applied for @Model.JobPosting.Title on @Model.CreatedAt.ToString("MMM dd, yyyy")
+                        Prijavio/la se za @Model.JobPosting.Title dana @Model.CreatedAt.ToString("MMM dd, yyyy")
                     </p>
                 </div>
             </div>
@@ -72,7 +72,7 @@
             <div class="flex justify-center mb-4">
                 <div class="bg-white rounded-lg py-2 px-4 shadow-sm max-w-sm w-full">
                     <p class="text-sm text-gray-500 text-center">
-                        This is the beginning of your conversation with @Model.User.UserName
+                        Ovo je početak vašeg razgovora sa @Model.User.UserName
                     </p>
                 </div>
             </div>
@@ -86,7 +86,7 @@
                     <input type="text"
                            name="content"
                            class="w-full border-gray-300 rounded-full focus:ring-indigo-500 focus:border-indigo-500 px-4 py-2"
-                           placeholder="Type a message..."
+                           placeholder="Napišite poruku..."
                            required />
                 </div>
                 <button type="submit"

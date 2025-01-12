@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="sr">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,13 +21,13 @@
                         <div class="flex space-x-4">
                             @if (User.Identity.IsAuthenticated)
                             {
-                                <a class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md" asp-controller="Conversations" asp-action="Index">Chats</a>
+                                <a class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md" asp-controller="Conversations" asp-action="Index">Razgovori</a>
                             }
                         </div>
                         <div class="flex space-x-4">
                             @if (User.Identity.IsAuthenticated && User.Claims.Any(c => c.Type == "AccountType" && c.Value == "Business"))
                             {
-                                <a class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md" asp-controller="JobPostings" asp-action="Index">Job Postings</a>
+                                <a class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md" asp-controller="JobPostings" asp-action="Index">Oglasi za Posao</a>
                             }
                         </div>
                         <partial name="_LoginPartial" />
@@ -35,7 +35,7 @@
 
                     <div class="flex items-center sm:hidden">
                         <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500" aria-controls="mobile-menu" aria-expanded="false">
-                            <span class="sr-only">Toggle navigation</span>
+                            <span class="sr-only">Prikaži navigaciju</span>
                             <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                             </svg>
@@ -48,7 +48,7 @@
                 <div class="pt-2 pb-3 space-y-1">
                     @if (User.Identity.IsAuthenticated && User.Claims.Any(c => c.Type == "AccountType" && c.Value == "Business"))
                     {
-                        <a class="block px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100" asp-controller="JobPostings" asp-action="Index">Job Postings</a>
+                        <a class="block px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100" asp-controller="JobPostings" asp-action="Index">Oglasi za Posao</a>
                     }
                     <div class="border-t border-gray-200 pt-4">
                         <partial name="_LoginPartial" />
@@ -64,7 +64,7 @@
 
     <footer class="bg-white border-t mt-auto">
         <div class="max-w-7xl mx-auto px-4 py-6 text-gray-600">
-            &copy; 2024 - RapidRecruit
+            &copy; 2025 - RapidRecruit
         </div>
     </footer>
 
@@ -72,11 +72,33 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script>
         // Mobile menu toggle
-        document.querySelector('[aria-controls="mobile-menu"]').addEventListener('click', function() {
+        document.querySelector('[aria-controls="mobile-menu"]').addEventListener('click', function () {
             const menu = document.getElementById('mobile-menu');
             const expanded = this.getAttribute('aria-expanded') === 'true';
             this.setAttribute('aria-expanded', !expanded);
             menu.classList.toggle('hidden');
+        });
+    </script>
+    <script>
+        $.extend($.validator.messages, {
+            required: "Ovo polje je obavezno.",
+            remote: "Popravite ovo polje.",
+            email: "Unesite ispravnu email adresu.",
+            url: "Unesite ispravan URL.",
+            date: "Unesite ispravan datum.",
+            dateISO: "Unesite ispravan datum (ISO).",
+            number: "Unesite ispravan broj.",
+            digits: "Unesite samo cifre.",
+            creditcard: "Unesite ispravan broj kreditne kartice.",
+            equalTo: "Unesite istu vrednost ponovo.",
+            extension: "Unesite vrednost sa ispravnom ekstenzijom.",
+            maxlength: $.validator.format("Ne možete uneti više od {0} karaktera."),
+            minlength: $.validator.format("Morate uneti najmanje {0} karaktera."),
+            rangelength: $.validator.format("Unesite vrednost dužine između {0} i {1} karaktera."),
+            range: $.validator.format("Unesite vrednost između {0} i {1}."),
+            max: $.validator.format("Unesite vrednost manju ili jednaku {0}."),
+            min: $.validator.format("Unesite vrednost veću ili jednaku {0}."),
+            step: $.validator.format("Unesite vrednost koja je umnožak broja {0}.")
         });
     </script>
     @await RenderSectionAsync("Scripts", required: false)

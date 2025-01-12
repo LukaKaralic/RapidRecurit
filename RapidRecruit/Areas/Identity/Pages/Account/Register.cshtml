@@ -1,18 +1,18 @@
 ﻿@page
 @model RegisterModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Registracija";
 }
 
 <div class="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
         <h1 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-            Create a new account
+            Kreirajte novi nalog
         </h1>
         <p class="mt-2 text-center text-sm text-gray-600">
-            Already have an account?
+            Već imate nalog?
             <a asp-page="./Login" class="font-medium text-indigo-600 hover:text-indigo-500">
-                Sign in here
+                Prijavite se ovde
             </a>
         </p>
     </div>
@@ -23,45 +23,45 @@
                 <div asp-validation-summary="ModelOnly" class="mb-4 p-4 rounded-md bg-red-50 text-sm text-red-600" role="alert"></div>
 
                 <div>
-                    <label asp-for="Input.AccountType" class="block text-sm font-medium text-gray-700">I am registering as:</label>
+                    <label asp-for="Input.AccountType" class="block text-sm font-medium text-gray-700">Registrujem se kao:</label>
                     <select asp-for="Input.AccountType"
                             class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                             onchange="toggleBusinessFields(this.value)">
-                        <option value="1" selected>Job Seeker</option>
-                        <option value="0">Business / Employer</option>
+                        <option value="1" selected>Tražilac Posla</option>
+                        <option value="0">Firma / Poslodavac</option>
                     </select>
                     <span asp-validation-for="Input.AccountType" class="mt-1 text-sm text-red-600"></span>
                 </div>
 
                 <div id="businessNameField" class="hidden">
-                    <label asp-for="Input.BusinessName" class="block text-sm font-medium text-gray-700">Business Name</label>
+                    <label asp-for="Input.BusinessName" class="block text-sm font-medium text-gray-700">Naziv Firme</label>
                     <div class="mt-1">
                         <input asp-for="Input.BusinessName"
                                class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                               placeholder="Enter your business name" />
+                               placeholder="Unesite naziv vaše firme" />
                     </div>
                     <span asp-validation-for="Input.BusinessName" class="mt-1 text-sm text-red-600"></span>
                 </div>
 
                 <div id="nameFieldsContainer">
-                    <h3 id="nameFieldsTitle" class="text-lg font-medium text-gray-900 mb-4 hidden">Hiring Manager Information</h3>
+                    <h3 id="nameFieldsTitle" class="text-lg font-medium text-gray-900 mb-4 hidden">Informacije o Menadžeru za Zapošljavanje</h3>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label asp-for="Input.FirstName" class="block text-sm font-medium text-gray-700">First Name</label>
+                            <label asp-for="Input.FirstName" class="block text-sm font-medium text-gray-700">Ime</label>
                             <div class="mt-1">
                                 <input asp-for="Input.FirstName"
                                        class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                       placeholder="Enter first name" />
+                                       placeholder="Unesite ime" />
                             </div>
                             <span asp-validation-for="Input.FirstName" class="mt-1 text-sm text-red-600"></span>
                         </div>
 
                         <div>
-                            <label asp-for="Input.LastName" class="block text-sm font-medium text-gray-700">Last Name</label>
+                            <label asp-for="Input.LastName" class="block text-sm font-medium text-gray-700">Prezime</label>
                             <div class="mt-1">
                                 <input asp-for="Input.LastName"
                                        class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                       placeholder="Enter last name" />
+                                       placeholder="Unesite prezime" />
                             </div>
                             <span asp-validation-for="Input.LastName" class="mt-1 text-sm text-red-600"></span>
                         </div>
@@ -69,39 +69,39 @@
                 </div>
 
                 <div>
-                    <label asp-for="Input.Email" class="block text-sm font-medium text-gray-700">Email address</label>
+                    <label asp-for="Input.Email" class="block text-sm font-medium text-gray-700">Email adresa</label>
                     <div class="mt-1">
                         <input asp-for="Input.Email"
                                autocomplete="username"
                                aria-required="true"
                                class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                               placeholder="name@example.com" />
+                               placeholder="ime@primer.com" />
                     </div>
                     <span asp-validation-for="Input.Email" class="mt-1 text-sm text-red-600"></span>
                 </div>
 
                 <div>
-                    <label asp-for="Input.Password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <label asp-for="Input.Password" class="block text-sm font-medium text-gray-700">Lozinka</label>
                     <div class="mt-1">
                         <input asp-for="Input.Password"
                                type="password"
                                autocomplete="new-password"
                                aria-required="true"
                                class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                               placeholder="Enter your password" />
+                               placeholder="Unesite vašu lozinku" />
                     </div>
                     <span asp-validation-for="Input.Password" class="mt-1 text-sm text-red-600"></span>
                 </div>
 
                 <div>
-                    <label asp-for="Input.ConfirmPassword" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                    <label asp-for="Input.ConfirmPassword" class="block text-sm font-medium text-gray-700">Potvrda Lozinke</label>
                     <div class="mt-1">
                         <input asp-for="Input.ConfirmPassword"
                                type="password"
                                autocomplete="new-password"
                                aria-required="true"
                                class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                               placeholder="Confirm your password" />
+                               placeholder="Potvrdite vašu lozinku" />
                     </div>
                     <span asp-validation-for="Input.ConfirmPassword" class="mt-1 text-sm text-red-600"></span>
                 </div>
@@ -110,7 +110,7 @@
                     <button id="registerSubmit"
                             type="submit"
                             class="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                        Register
+                        Registruj se
                     </button>
                 </div>
             </form>

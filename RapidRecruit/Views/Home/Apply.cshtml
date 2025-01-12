@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Submit Application";
+    ViewData["Title"] = "Podnesi Prijavu";
 }
 @model RapidRecruit.Models.JobPosting
 
@@ -8,24 +8,24 @@
         <!-- Header Section -->
         <div class="p-6 sm:p-8 border-b border-gray-200">
             <div>
-                <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Submit Application</h1>
+                <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Podnesi Prijavu</h1>
                 <p class="text-lg text-gray-700 font-medium">@Model.Title</p>
                 <p class="text-gray-600">@Model.User.BusinessName</p>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="bg-gray-50 p-4 rounded-lg">
-                        <h3 class="text-sm font-medium text-gray-500">Salary Range</h3>
+                        <h3 class="text-sm font-medium text-gray-500">Raspon Plate</h3>
                         <p class="mt-1 text-lg font-medium text-gray-900">
                             $@Model.MinimumSalary - $@Model.MaximumSalary
                         </p>
                     </div>
                     <div class="bg-gray-50 p-4 rounded-lg">
-                        <h3 class="text-sm font-medium text-gray-500">Application Deadline</h3>
+                        <h3 class="text-sm font-medium text-gray-500">Rok za Prijavu</h3>
                         <p class="mt-1 text-lg font-medium text-gray-900">
                             @Model.EndDate.ToString("MMMM dd, yyyy")
                         </p>
                     </div>
                     <div class="bg-gray-50 p-4 rounded-lg">
-                        <h3 class="text-sm font-medium text-gray-500">Posted Date</h3>
+                        <h3 class="text-sm font-medium text-gray-500">Datum Objave</h3>
                         <p class="mt-1 text-lg font-medium text-gray-900">
                             @Model.CreatedAt.ToString("MMMM dd, yyyy")
                         </p>
@@ -39,19 +39,18 @@
             <div class="p-6 sm:p-8 space-y-8">
                 <div>
                     <label for="message" class="block text-sm font-medium text-gray-700 mb-2">
-                        Message to Hiring Manager
+                        Poruka za Poslodavca
                     </label>
-                    <textarea
-                              id="message"
+                    <textarea id="message"
                               name="message"
                               rows="6"
                               class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                              placeholder="Introduce yourself and explain why you're a great fit for this position..."></textarea>
+                              placeholder="Predstavite se i objasnite zašto ste odličan izbor za ovu poziciju..."></textarea>
                 </div>
 
                 <div>
                     <label for="resume" class="block text-sm font-medium text-gray-700 mb-2">
-                        Upload Resume
+                        Otpremi CV
                     </label>
                     <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                         <div class="space-y-1 text-center">
@@ -60,13 +59,13 @@
                             </svg>
                             <div class="flex text-sm text-gray-600">
                                 <label for="resume-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                                    <span>Upload a file</span>
+                                    <span>Otpremi fajl</span>
                                     <input name="resume" id="resume-upload" required type="file" class="sr-only" accept=".pdf,.doc,.docx">
                                 </label>
-                                <p class="pl-1">or drag and drop</p>
+                                <p class="pl-1">ili prevuci i pusti</p>
                             </div>
                             <p class="text-xs text-gray-500">
-                                PDF, DOC, DOCX up to 10MB
+                                PDF, DOC, DOCX do 10MB
                             </p>
                         </div>
                     </div>
@@ -77,11 +76,11 @@
                 <div class="flex justify-between items-center">
                     <a asp-controller="Home" asp-action="Job" asp-route-id="@Model.Id"
                        class="text-gray-600 hover:text-gray-900 font-medium">
-                        ← Back to Job Details
+                        ← Nazad na Detalje Posla
                     </a>
                     <button type="submit"
                             class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        Submit Application
+                        Podnesi Prijavu
                     </button>
                 </div>
             </div>
@@ -94,7 +93,7 @@
         const fileName = e.target.files[0]?.name;
         if (fileName) {
             const fileText = document.querySelector('.text-xs.text-gray-500');
-            fileText.textContent = `Selected file: ${fileName}`;
+            fileText.textContent = `Izabrani fajl: ${fileName}`;
         }
     });
 
@@ -136,7 +135,7 @@
 
         if (files[0]) {
             const fileText = document.querySelector('.text-xs.text-gray-500');
-            fileText.textContent = `Selected file: ${files[0].name}`;
+            fileText.textContent = `Izabrani fajl: ${files[0].name}`;
         }
     }
 </script>

@@ -6,7 +6,7 @@
         <div class="h-full flex flex-col">
             <!-- Header -->
             <div class="py-3 px-4 border-b border-gray-200">
-                <h1 class="text-lg font-semibold text-gray-800">Messages</h1>
+                <h1 class="text-lg font-semibold text-gray-800">Poruke</h1>
             </div>
 
             <!-- Chat list -->
@@ -21,17 +21,17 @@
                         @if (User.Identity.IsAuthenticated && User.Claims.Any(c => c.Type == "AccountType" && c.Value == "Business"))
                         {
                             <p class="text-gray-600 mb-4">
-                                To start a conversation, review candidates' applications on your job postings and initiate a chat from their application.
+                                Da biste započeli razgovor, pregledajte prijave kandidata na vaše oglase za posao i pokrenite razgovor iz njihove prijave.
                             </p>
                             <a asp-controller="JobPostings" asp-action="Index"
                                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                View Job Postings
+                                Pregledaj Oglase za Posao
                             </a>
                         }
                         else
                         {
                             <p class="text-gray-600">
-                                You have no active conversations.
+                                Nemate aktivnih razgovora.
                             </p>
                         }
                     </div>
@@ -77,8 +77,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                           d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-4l-4 4-4-4z" />
                 </svg>
-                <h3 class="mt-2 text-sm font-medium text-gray-900">No chat selected</h3>
-                <p class="mt-1 text-sm text-gray-500">Select a conversation to start messaging</p>
+                <h3 class="mt-2 text-sm font-medium text-gray-900">Nije izabran razgovor</h3>
+                <p class="mt-1 text-sm text-gray-500">Izaberite razgovor da započnete dopisivanje</p>
             </div>
         </div>
     </div>

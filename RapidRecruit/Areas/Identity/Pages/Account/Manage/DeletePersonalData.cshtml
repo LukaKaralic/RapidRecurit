@@ -1,31 +1,65 @@
 ﻿@page
 @model DeletePersonalDataModel
 @{
-    ViewData["Title"] = "Delete Personal Data";
+    ViewData["Title"] = "Brisanje Ličnih Podataka";
     ViewData["ActivePage"] = ManageNavPages.PersonalData;
 }
 
-<h3>@ViewData["Title"]</h3>
+<div class="max-w-2xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+    <div class="bg-white shadow rounded-lg p-6">
+        <div class="space-y-6">
 
-<div class="alert alert-warning" role="alert">
-    <p>
-        <strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>
-    </p>
-</div>
-
-<div>
-    <form id="delete-user" method="post">
-        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-        @if (Model.RequirePassword)
-        {
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Please enter your password." />
-                <label asp-for="Input.Password" class="form-label"></label>
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            <!-- Header -->
+            <div>
+                <h3 class="text-2xl font-bold text-gray-900">@ViewData["Title"]</h3>
             </div>
-        }
-        <button class="w-100 btn btn-lg btn-danger" type="submit">Delete data and close my account</button>
-    </form>
+
+            <!-- Warning -->
+            <div class="bg-red-50 border-l-4 border-red-400 p-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-red-700">
+                            <strong>Brisanje ovih podataka će trajno ukloniti vaš nalog i to se ne može povratiti.</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <form id="delete-user" method="post" class="space-y-6">
+                <div asp-validation-summary="ModelOnly" class="rounded-md bg-red-50 p-4 text-sm text-red-600" role="alert"></div>
+
+                @if (Model.RequirePassword)
+                {
+                    <div class="space-y-1">
+                        <label asp-for="Input.Password" class="block text-sm font-medium text-gray-700">Lozinka</label>
+                        <div class="mt-1">
+                            <input asp-for="Input.Password"
+                                   type="password"
+                                   autocomplete="current-password"
+                                   aria-required="true"
+                                   class="block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm"
+                                   placeholder="Unesite vašu lozinku" />
+                        </div>
+                        <span asp-validation-for="Input.Password" class="mt-1 text-sm text-red-600"></span>
+                    </div>
+                }
+
+                <div class="pt-4">
+                    <button type="submit"
+                            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                        Izbriši podatke i zatvori moj nalog
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 @section Scripts {

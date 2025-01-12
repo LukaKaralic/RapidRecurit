@@ -17,9 +17,10 @@ namespace RapidRecruit.Models
         public AccountType AccountType { get; set; }
         [BusinessNameValidation]
 
-        [Required]
+        [Required(ErrorMessage = "Ime je obavezno")]
         public string FirstName { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Prezime je obavezno")]
         public string LastName { get; set; }
         public string? BusinessName { get; set; }
         public virtual ICollection<JobPosting> JobPostings { get; set; } = new List<JobPosting>();

@@ -1,18 +1,17 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Početna stranica";
 }
 @model IEnumerable<RapidRecruit.Models.JobPosting>
-
 <div class="container mx-auto px-4 py-8">
     <!-- Search section -->
     <div class="max-w-3xl mx-auto mb-12">
-        <h1 class="text-3xl font-bold text-center text-gray-900 mb-6">Find Your Next Opportunity</h1>
+        <h1 class="text-3xl font-bold text-center text-gray-900 mb-6">Pronađite Svoju Sledeću Priliku</h1>
         <form asp-controller="Home" asp-action="Index" method="get" class="flex gap-4">
             <div class="flex-1 relative">
                 <input type="text"
                        name="search"
                        class="w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                       placeholder="Search jobs by title, company, or location..."
+                       placeholder="Pretražite poslove po nazivu, kompaniji ili lokaciji..."
                        value="@Context.Request.Query["search"]">
                 <div class="absolute inset-y-0 right-0 flex items-center pr-3">
                     <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -22,11 +21,10 @@
             </div>
             <button type="submit"
                     class="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-sm">
-                Search
+                Pretraži
             </button>
         </form>
     </div>
-
     <!-- Job listings grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         @foreach (var item in Model)
@@ -38,8 +36,8 @@
                         <p class="text-gray-600 font-medium">@Html.DisplayFor(modelItem => item.User.BusinessName)</p>
                     </div>
                     <div class="text-right">
-                        <p class="text-sm text-gray-500">Posted: @item.CreatedAt.ToString("MMM dd, yyyy")</p>
-                        <p class="text-sm text-gray-500">Ends: @item.EndDate.ToString("MMM dd, yyyy")</p>
+                        <p class="text-sm text-gray-500">Objavljeno: @item.CreatedAt.ToString("MMM dd, yyyy")</p>
+                        <p class="text-sm text-gray-500">Ističe: @item.EndDate.ToString("MMM dd, yyyy")</p>
                     </div>
                 </div>
                 <div class="mb-4">
@@ -47,14 +45,14 @@
                 </div>
                 <div class="grid grid-cols-2 gap-4 mb-4">
                     <div>
-                        <p class="text-sm text-gray-500">Salary Range:</p>
+                        <p class="text-sm text-gray-500">Raspon plate:</p>
                         <p class="text-gray-700">
                             $@Html.DisplayFor(modelItem => item.MinimumSalary) -
                             $@Html.DisplayFor(modelItem => item.MaximumSalary)
                         </p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-500">Location:</p>
+                        <p class="text-sm text-gray-500">Lokacija:</p>
                         <p class="text-gray-700">@Html.DisplayFor(modelItem => item.Location)</p>
                     </div>
                 </div>
@@ -63,7 +61,7 @@
                        asp-action="Job"
                        asp-route-id="@item.Id"
                        class="block w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors text-center">
-                        View Details
+                        Pogledaj Detalje
                     </a>
                 </div>
             </div>
