@@ -75,33 +75,33 @@ namespace RapidRecruit.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "Polje {0} je obavezno.")]
+            [EmailAddress(ErrorMessage = "Polje {0} nije validna email adresa.")]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
 
-            [Required]
-            [Display(Name = "I am a:")]
+            [Required(ErrorMessage = "Polje {0} je obavezno.")]
+            [Display(Name = "Tip naloga")]
             public AccountType AccountType { get; set; } = AccountType.Person;
 
-            [Display(Name = "Company Name")]
+            [Display(Name = "Naziv firme")]
             public string? BusinessName { get; set; }
 
-            [Display(Name = "First Name")]
+            [Display(Name = "Ime")]
             public string FirstName { get; set; }
 
-            [Display(Name = "Last Name")]
+            [Display(Name = "Prezime")]
             public string LastName { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "Polje {0} je obavezno.")]
+            [StringLength(100, ErrorMessage = "Polje {0} mora imati između {2} i {1} karaktera.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Lozinka")]
             public string Password { get; set; }
 
             /// <summary>
@@ -109,8 +109,8 @@ namespace RapidRecruit.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Potvrdi lozinku")]
+            [Compare("Password", ErrorMessage = "Lozinka i potvrda lozinke se ne poklapaju.")]
             public string ConfirmPassword { get; set; }
         }
 

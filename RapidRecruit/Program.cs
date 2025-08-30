@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using RapidRecruit.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,19 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")
 ));
+
+// Localization
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    var supportedCultures = new[] { "sr", "sr-RS" };
+    var cultureInfo = new CultureInfo("sr");
+    options.DefaultRequestCulture = new RequestCulture("sr", "sr");
+    options.SupportedCultures = supportedCultures.Select(c => new CultureInfo(c)).ToList();
+    options.SupportedUICultures = supportedCultures.Select(c => new CultureInfo(c)).ToList();
+    options.FallBackToParentCultures = true;
+    options.FallBackToParentUICultures = true;
+});
 
 // Authorization
 builder.Services.AddScoped<IAuthorizationHandler, OwnerHandler>();
@@ -31,6 +46,8 @@ var identityBuilder = builder.Services.AddDefaultIdentity<UserAccount>(options =
     options.SignIn.RequireConfirmedAccount = !builder.Environment.IsDevelopment();
 });
 identityBuilder.AddEntityFrameworkStores<ApplicationDbContext>();
+identityBuilder.AddDefaultTokenProviders();
+identityBuilder.AddErrorDescriber<RapidRecruit.SerbianIdentityErrorDescriber>();
 
 if (builder.Environment.IsDevelopment())
 {
@@ -44,7 +61,17 @@ else
 // Claims transformation
 builder.Services.AddScoped<IClaimsTransformation, AccountTypeClaimsTransformation>();
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddDataAnnotationsLocalization(options => {
+        options.DataAnnotationLocalizerProvider = (type, factory) =>
+            factory.Create(typeof(RapidRecruit.Resources.SharedResources));
+    });
+
+builder.Services.AddRazorPages()
+    .AddDataAnnotationsLocalization(options => {
+        options.DataAnnotationLocalizerProvider = (type, factory) =>
+            factory.Create(typeof(RapidRecruit.Resources.SharedResources));
+    });
 
 var app = builder.Build();
 
@@ -57,6 +84,9 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseRequestLocalization();
+
 app.UseRouting();
 app.UseAuthorization();
 

@@ -1,23 +1,23 @@
 ﻿@page
 @model ErrorModel
 @{
-    ViewData["Title"] = "Error";
+    ViewData["Title"] = "Greška";
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+<h1 class="text-danger">Greška.</h1>
+<h2 class="text-danger">Dogodila se greška tokom obrade vašeg zahteva.</h2>
 
 @if (Model.ShowRequestId)
 {
     <p>
-        <strong>Request ID:</strong> <code>@Model.RequestId</code>
+        <strong>ID zahteva:</strong> <code>@Model.RequestId</code>
     </p>
 }
 
-<h3>Development Mode</h3>
+<h3>Development režim</h3>
 <p>
-    Swapping to <strong>Development</strong> environment will display more detailed information about the error that occurred.
+    Prebacivanje na <strong>Development</strong> okruženje će prikazati detaljnije informacije o grešci koja se dogodila.
 </p>
 <p>
-    <strong>Development environment should not be enabled in deployed applications</strong>, as it can result in sensitive information from exceptions being displayed to end users. For local debugging, development environment can be enabled by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>, and restarting the application.
+    <strong>Development okruženje ne bi trebalo biti omogućeno u primenjenim aplikacijama</strong>, jer može rezultovati prikazivanjem osetljivih informacija iz izuzetaka krajnjim korisnicima. Za lokalno otklanjanje grešaka, development okruženje može biti omogućeno postavljanjem <strong>ASPNETCORE_ENVIRONMENT</strong> promenljive okruženja na <strong>Development</strong>, i pokretanjem aplikacije ponovo.
 </p>

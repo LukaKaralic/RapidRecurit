@@ -1,25 +1,25 @@
 ﻿@page
 @model LoginWithRecoveryCodeModel
 @{
-    ViewData["Title"] = "Recovery code verification";
+    ViewData["Title"] = "Verifikacija koda za oporavak";
 }
 
 <h1>@ViewData["Title"]</h1>
 <hr />
 <p>
-    You have requested to log in with a recovery code. This login will not be remembered until you provide
-    an authenticator app code at log in or disable 2FA and log in again.
+    Zatražili ste prijavljivanje sa kodom za oporavak. Ova prijava neće biti zapamćena dok ne unesite
+    kod iz autentifikator aplikacije pri prijavljivanju ili onemogućite 2FA i ponovo se prijavite.
 </p>
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div class="form-floating mb-3">
-                <input asp-for="Input.RecoveryCode" class="form-control" autocomplete="off" placeholder="RecoveryCode" />
-                <label asp-for="Input.RecoveryCode" class="form-label"></label>
+                <input asp-for="Input.RecoveryCode" class="form-control" autocomplete="off" placeholder="Kod za oporavak" />
+                <label asp-for="Input.RecoveryCode" class="form-label">Kod za oporavak</label>
                 <span asp-validation-for="Input.RecoveryCode" class="text-danger"></span>
             </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+            <button type="submit" class="w-100 btn btn-lg btn-primary">Prijavi se</button>
         </form>
     </div>
 </div>
